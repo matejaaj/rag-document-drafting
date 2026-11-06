@@ -1,0 +1,60 @@
+<div class="wa-modal-backdrop" (click)="cancel()">
+  <div
+    class="wa-modal"
+    (click)="$event.stopPropagation()"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="outputFeedbackDialogTitle"
+  >
+    <h2 id="outputFeedbackDialogTitle">Oceni rezultat</h2>
+
+    <div class="form-row">
+      <label class="wa-label">Ocena</label>
+      <div class="stars">
+        <img
+          *ngFor="let rating of ratings"
+          [src]="
+            rating <= (hoverRating || ratingValue || 0)
+              ? 'assets/star_fill.svg'
+              : 'assets/star_empty.svg'
+          "
+          (click)="ratingValue = rating"
+          (mouseenter)="hoverRating = rating"
+          (mouseleave)="hoverRating = 0"
+          class="star"
+          [alt]="'Ocena ' + rating"
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label class="wa-label" for="feedbackComment">Komentar</label>
+      <textarea
+        id="feedbackComment"
+        class="wa-input wa-result"
+        rows="4"
+        [(ngModel)]="commentText"
+        (input)="autoGrow($event)"
+        placeholder="Objasnite zašto vam je rezultat bio koristan ili ne – šta biste poboljšali ili pohvalili?"
+      ></textarea>
+    </div>
+
+    <div class="wa-modal-actions">
+      <button
+        class="wa-btn primary"
+        (click)="submit()"
+        [disabled]="submitting || !ratingValue || !modelOutputId"
+      >
+        {{ submitting ? "Slanje…" : "Oceni" }}
+      </button>
+      <button
+        class="wa-btn ghost"
+        type="button"
+        (click)="cancel()"
+        [disabled]="submitting"
+      >
+        Odustani
+      </button>
+    </div>
+  </div>
+</div>

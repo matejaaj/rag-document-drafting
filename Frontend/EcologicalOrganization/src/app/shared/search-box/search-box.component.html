@@ -1,0 +1,13 @@
+<div class="search-row" [class.compact]="collapsible" *ngIf="open || !collapsible">
+  <input
+    #input
+    class="wa-input"
+    type="text"
+    [attr.id]="inputId"
+    [ngModel]="searchTerm"
+    (ngModelChange)="changeSearchTerm($event)"
+    [placeholder]="placeholder"
+    autocomplete="off"
+  />
+  <button class="wa-btn" type="button" (click)="clear()" aria-label="Obriši pretragu" title="Obriši">✕</button>
+</div>

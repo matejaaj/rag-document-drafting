@@ -1,0 +1,31 @@
+<aside class="sidebar2">
+  <div class="templates-head">
+    <strong>Verzije</strong>
+  </div>
+
+  <div class="actions">
+    <button class="wa-btn full" type="button" (click)="createVersionRequested.emit()">
+      + Kreiraj novu verziju
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loading">Učitavanje…</div>
+
+  <div class="template-list" *ngIf="!loading">
+    <button
+      class="t-card"
+      type="button"
+      *ngFor="let version of versions"
+      (click)="selectedVersionChange.emit(version)"
+      [class.selected]="version.id === selectedVersionId"
+    >
+      <div class="t-name">
+        {{ version.name || "v" + version.id }}
+        <span *ngIf="version.isActive" class="badge">aktivna</span>
+      </div>
+      <div class="t-desc">
+        {{ version.updatedAt ? (version.updatedAt | date : "short") : "--" }}
+      </div>
+    </button>
+  </div>
+</aside>

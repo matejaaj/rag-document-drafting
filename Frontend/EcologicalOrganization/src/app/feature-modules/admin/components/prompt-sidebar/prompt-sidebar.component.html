@@ -1,0 +1,84 @@
+<aside class="sidebar">
+  <div class="brand brand-link">
+    <div class="dot"></div>
+    <a class="sidebar-title" href="/writing-assistant"
+      ><h1>Asistirano pisanje</h1></a
+    >
+  </div>
+
+  <div class="quick-links">
+    <a href="/document-type-management" class="quick-link"
+      >Upravljaj tipovima dokumenata ↗</a
+    >
+    <a class="quick-link" (click)="openSystemAnalyticsRequested.emit()"
+      >Analitika celog sistema ↗</a
+    >
+    <a class="quick-link" href="/register">Upravljaj korisničkim nalozima ↗</a>
+  </div>
+
+  <button class="wa-btn primary padded-btn" (click)="createPromptRequested.emit()">
+    + Kreiraj novi prompt
+  </button>
+
+  <div class="section-head">
+    <div class="section-title">Promptovi</div>
+    <button
+      class="search-toggle"
+      (click)="searchBox.toggle()"
+      [attr.aria-expanded]="searchBox.open"
+      aria-controls="promptSearch"
+    >
+      🔎 Pretraži
+    </button>
+  </div>
+
+  <app-search-box
+    #searchBox
+    [collapsible]="true"
+    inputId="promptSearch"
+    placeholder="Pretraži promptove…"
+    (searchTermChange)="search($event)"
+  ></app-search-box>
+
+  <div #scrollArea class="scroll-area" (appScrollNearBottom)="loadMoreRequested.emit()">
+    <div *ngIf="loading" class="initial-loading">Učitavanje...</div>
+
+    <div class="list" *ngIf="!loading">
+      <div
+        class="item"
+        *ngFor="let prompt of prompts"
+        [class.selected]="prompt.id === selectedPromptId"
+      >
+        <div class="avatar" (click)="selectedPromptChange.emit(prompt)">📄</div>
+
+        <div class="meta" (click)="selectedPromptChange.emit(prompt)">
+          <div class="title">
+            {{ prompt.title || "(bez naslova)" }}
+            <span *ngIf="prompt.isActive" class="badge">aktivan</span>
+          </div>
+          <div class="sub">
+            {{ prompt.updatedAt ? (prompt.updatedAt | date : "short") : "" }}
+          </div>
+        </div>
+
+        <div class="menu-wrap" (click)="$event.stopPropagation()">
+          <button class="menu-btn" (click)="toggleMenu(prompt.id)">⋮</button>
+          <div class="menu" *ngIf="openMenuPromptId === prompt.id">
+            <button class="menu-item" (click)="requestDelete(prompt.id)">Obriši</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="infinite-loader" *ngIf="loadingMore">
+        <span class="spinner" aria-hidden="true"></span>
+        <span>Učitavanje još…</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-footer">
+    <button class="wa-btn full" type="button" (click)="logoutRequested.emit()">
+      ⎋ Odjavi se
+    </button>
+  </div>
+</aside>

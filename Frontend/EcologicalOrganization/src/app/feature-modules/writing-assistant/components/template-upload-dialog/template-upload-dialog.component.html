@@ -1,0 +1,81 @@
+<div class="wa-modal-backdrop" (click)="cancel()">
+  <div
+    class="wa-modal"
+    (click)="$event.stopPropagation()"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="templateUploadDialogTitle"
+  >
+    <h2 id="templateUploadDialogTitle">Dodaj novi šablon</h2>
+
+    <div class="file-row">
+      <label class="wa-file-btn">
+        <input
+          #fileInput
+          type="file"
+          accept=".md,text/markdown"
+          (change)="selectFile($event)"
+        />
+        Izaberi datoteku
+      </label>
+
+      <div class="file-chip" [class.placeholder]="!form.file">
+        <ng-container *ngIf="form.file">
+          <span class="file-chip-name">{{ form.file.name }}</span>
+          <button
+            class="file-chip-x"
+            type="button"
+            aria-label="Ukloni fajl"
+            (click)="clearFile(fileInput)"
+          >
+            ×
+          </button>
+        </ng-container>
+      </div>
+    </div>
+
+    <div>
+      <label class="wa-label" for="templateName">Naziv šablona</label>
+      <input
+        id="templateName"
+        class="wa-input"
+        type="text"
+        [(ngModel)]="form.name"
+        (ngModelChange)="nameEdited = true"
+        placeholder="Naziv"
+      />
+    </div>
+
+    <div>
+      <label class="wa-label" for="templateDocumentType">Tip dokumenta</label>
+      <select
+        id="templateDocumentType"
+        class="wa-input small"
+        [(ngModel)]="form.documentTypeId"
+      >
+        <option [ngValue]="null" disabled>Odaberi tip…</option>
+        <option *ngFor="let documentType of documentTypes" [ngValue]="documentType.id">
+          {{ documentType.name === "Default" ? "Opšti" : documentType.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="wa-modal-actions">
+      <button
+        class="wa-btn primary"
+        (click)="upload()"
+        [disabled]="uploading || !isValid()"
+      >
+        {{ uploading ? "Dodavanje…" : "Dodaj" }}
+      </button>
+      <button
+        class="wa-btn ghost"
+        type="button"
+        (click)="cancel()"
+        [disabled]="uploading"
+      >
+        Odustani
+      </button>
+    </div>
+  </div>
+</div>

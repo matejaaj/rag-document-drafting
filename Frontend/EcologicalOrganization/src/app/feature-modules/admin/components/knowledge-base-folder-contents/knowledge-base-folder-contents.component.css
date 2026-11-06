@@ -1,0 +1,76 @@
+.dm-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.dm-column h3 {
+  margin: 0 0 8px 0;
+}
+
+.grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
+
+.card {
+  border: 1px solid #eef2f7;
+  border-radius: 14px;
+  padding: 10px;
+  display: grid;
+  gap: 6px;
+  background: #fafafa;
+}
+.card .icon {
+  font-size: 24px;
+}
+.card .name {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card .muted {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.card .row-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.card .mini {
+  justify-self: start;
+  border: 1px solid #e5e7eb;
+  background: white;
+  border-radius: 8px;
+  height: 28px;
+  padding: 0 8px;
+  cursor: pointer;
+}
+.card .mini.danger {
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+.card .mini:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.empty {
+  color: #6b7280;
+  font-style: italic;
+}
+
+.card.clickable {
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.card.clickable:hover {
+  background: #f3f4f6;
+}

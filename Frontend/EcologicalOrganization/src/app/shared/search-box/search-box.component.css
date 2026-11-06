@@ -1,0 +1,44 @@
+:host {
+  display: contents;
+}
+
+.search-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 0 3px;
+}
+.search-row.compact {
+  gap: 8px;
+  padding: 0 8px 8px;
+}
+
+.wa-input {
+  width: 100%;
+  background: var(--wa-panel-2);
+  color: var(--wa-text);
+  border: 1px solid var(--wa-line);
+  border-radius: 10px;
+  padding: 8px 10px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.compact .wa-input {
+  flex: 1;
+  max-width: 200px;
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+.wa-btn {
+  gap: 6px;
+  min-width: auto;
+  padding: 4px 8px;
+  font-size: 13px;
+  line-height: 1.2;
+  background: transparent;
+  color: var(--wa-muted);
+}
+.wa-btn:hover {
+  background: var(--wa-hover);
+}

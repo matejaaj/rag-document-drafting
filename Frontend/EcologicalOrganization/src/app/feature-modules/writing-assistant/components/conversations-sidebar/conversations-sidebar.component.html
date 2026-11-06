@@ -1,0 +1,76 @@
+<aside class="sidebar">
+  <div class="brand brand-link" (click)="homeRequested.emit()">
+    <div class="dot"></div>
+    <h1>Asistirano pisanje</h1>
+  </div>
+
+  <div class="quick-links" *ngIf="showAdminLink">
+    <a href="/dashboard" class="quick-link">Admin panel ↗</a>
+  </div>
+
+  <button class="wa-btn primary padded-btn" (click)="createRequested.emit()">
+    + Kreiraj novi dokument
+  </button>
+
+  <div class="section-head">
+    <div class="section-title">DOKUMENTA</div>
+    <button
+      class="search-toggle"
+      (click)="searchBox.toggle()"
+      [attr.aria-expanded]="searchBox.open"
+      aria-controls="conversationSearch"
+    >
+      🔎 Pretraži
+    </button>
+  </div>
+
+  <app-search-box
+    #searchBox
+    [collapsible]="true"
+    inputId="conversationSearch"
+    placeholder="Pretraži dokumenta…"
+    (searchTermChange)="search($event)"
+  ></app-search-box>
+
+  <div #scrollArea class="scroll-area" (appScrollNearBottom)="loadMoreRequested.emit()">
+    <div *ngIf="loading" class="initial-loading">Učitavanje...</div>
+
+    <div class="list" *ngIf="!loading">
+      <div
+        class="item"
+        *ngFor="let conversation of conversations"
+        [class.selected]="conversation.id === selectedConversationId"
+      >
+        <div class="avatar" (click)="openRequested.emit(conversation)">💬</div>
+
+        <div class="meta" (click)="openRequested.emit(conversation)">
+          <div class="title">
+            {{ conversation.title || "(bez naslova)" }}
+            <span class="chip test" *ngIf="conversation.isTestSession">TEST</span>
+          </div>
+          <div class="sub">
+            {{ conversation.updatedAt ? (conversation.updatedAt | date : "short") : "" }}
+          </div>
+        </div>
+
+        <div class="menu-wrap" (click)="$event.stopPropagation()">
+          <button class="menu-btn" (click)="toggleMenu(conversation.id)">⋮</button>
+          <div class="menu" *ngIf="openMenuConversationId === conversation.id">
+            <button class="menu-item" (click)="deleteConversation(conversation)">Obriši</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="infinite-loader" *ngIf="loadingMore">
+        <span class="spinner" aria-hidden="true"></span>
+        <span>Učitavanje još…</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-footer">
+    <button class="wa-btn full padded-btn" type="button" (click)="logoutRequested.emit()">
+      ⎋ Odjavi se
+    </button>
+  </div>
+</aside>

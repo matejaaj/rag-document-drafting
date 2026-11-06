@@ -1,0 +1,71 @@
+.sa-toolbar-inline {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.sa-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.sa-group-inline {
+  min-width: 260px;
+}
+
+.sa-range {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sa-range-sep {
+  color: var(--wa-muted);
+  font-size: 13px;
+}
+
+.sa-doc-type {
+  min-width: 220px;
+}
+.sa-doc-type-select {
+  max-width: 260px;
+}
+
+.sa-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--wa-muted);
+  font-size: 12px;
+  white-space: nowrap;
+  margin-bottom: 2px;
+}
+.sa-toggle input {
+  transform: translateY(1px);
+}
+
+.sa-actions-row {
+  display: flex;
+}
+.sa-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.wa-label {
+  font-size: 12px;
+  color: var(--wa-muted);
+  display: block;
+}
+.wa-input {
+  width: 100%;
+  background: var(--wa-panel-2);
+  color: var(--wa-text);
+  border: 1px solid var(--wa-line);
+  border-radius: 10px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+.wa-input.small {
+  max-width: 200px;
+}

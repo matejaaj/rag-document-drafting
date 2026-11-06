@@ -1,0 +1,97 @@
+:host {
+  min-height: 0;
+}
+
+.sidebar2 {
+  background: var(--wa-panel-2);
+  border-right: 1px solid var(--wa-line);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  min-width: 280px;
+  height: 100%;
+}
+
+.templates-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 4px;
+}
+
+.wa-btn.ghost.smallbtn {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  line-height: 1;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.loading {
+  color: var(--wa-muted);
+  font-size: 13px;
+  padding: 4px 6px;
+}
+
+.template-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow: auto;
+  flex: 1;
+  min-height: 0;
+}
+.template-list.disabled {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.t-item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: var(--wa-panel);
+}
+.t-item:hover {
+  background: var(--wa-hover);
+  border-color: var(--wa-line);
+}
+.t-item.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+.t-meta {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+.t-name {
+  font-size: 13px;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.t-desc {
+  font-size: 12px;
+  color: var(--wa-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.menu {
+  min-width: 120px;
+}

@@ -1,0 +1,16 @@
+.wa-editor {
+  max-width: 100%;
+  padding: 16px;
+}
+
+.wa-editor-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  gap: 16px;
+}
+
+.wa-sections {
+  display: grid;
+  gap: 12px;
+}

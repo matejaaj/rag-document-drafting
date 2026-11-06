@@ -1,0 +1,51 @@
+:root {
+  --wa-bg: #f7f7f8;
+  --wa-panel: #ffffff;
+  --wa-panel-2: #f0f1f3;
+  --wa-text: #1f1f23;
+  --wa-muted: #6b6b76;
+  --wa-line: #dcdce1;
+  --wa-hover: #e9e9ee;
+  --wa-accent: #2f6df6;
+  --wa-accent-2: #3a78ff;
+  --wa-radius: 12px;
+  --wa-selected: #dfe4f9;
+}
+
+.wa-btn {
+  appearance: none;
+  border: 1px solid var(--wa-line);
+  background: var(--wa-panel-2);
+  color: var(--wa-text);
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  min-width: 150px;
+}
+.wa-btn:hover {
+  background: var(--wa-hover);
+}
+.wa-btn.primary {
+  border-color: transparent;
+  background: var(--wa-accent);
+  color: #fff;
+}
+.wa-btn.primary:hover {
+  background: var(--wa-accent-2);
+}
+
+.wa-btn.danger {
+  border-color: #d32f2f;
+  color: #d32f2f;
+  background: var(--wa-panel-2);
+}
+
+.wa-btn.danger:hover {
+  background: var(--wa-hover);
+  border-color: #b71c1c;
+  color: #b71c1c;
+}

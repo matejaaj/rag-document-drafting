@@ -1,0 +1,66 @@
+.dm-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.dm-breadcrumbs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.crumb {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  cursor: pointer;
+}
+.crumb.active {
+  background: #eef2ff;
+  border-color: #c7d2fe;
+  cursor: default;
+}
+
+.dm-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.wa-input,
+.wa-select {
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.wa-btn {
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
+  background: #111827;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+.wa-btn.outline {
+  background: transparent;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+}
+.wa-btn.ghost {
+  background: transparent;
+  color: #6b7280;
+  border: 1px dashed #e5e7eb;
+}
+.wa-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

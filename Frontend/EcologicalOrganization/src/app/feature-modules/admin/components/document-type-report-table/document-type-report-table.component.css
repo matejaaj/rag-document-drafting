@@ -1,0 +1,56 @@
+.sa-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.sa-table th,
+.sa-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--wa-line);
+  text-align: left;
+  white-space: nowrap;
+}
+.sa-table thead th {
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--wa-muted);
+  position: relative;
+}
+
+.sa-sort {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-left: 6px;
+  opacity: 0.25;
+  vertical-align: middle;
+}
+.sa-sort::before {
+  content: "▲";
+  font-size: 10px;
+  line-height: 12px;
+}
+.sa-sort.desc::before {
+  content: "▼";
+}
+.sa-sort.active {
+  opacity: 1;
+  color: var(--wa-text);
+}
+
+.sa-table tr.total td {
+  font-weight: 600;
+  background: var(--wa-panel-2);
+}
+
+.sa-total-chip {
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: #a0a0a5;
+  color: var(--wa-text);
+  border: 1px solid var(--wa-line);
+}

@@ -1,0 +1,85 @@
+version: "3.8"
+
+services:
+  gateway-api:
+    build:
+      context: ./GatewayService
+      dockerfile: Dockerfile
+    image: gateway-api:latest
+    depends_on:
+      - user-management-service
+    environment:
+      GATEWAY_PORT: "9000"
+      WRITING_ASSISTANT_URL: "http://host.docker.internal:8000/writing-assistant"
+      USER_MANAGEMENT_URL: "http://user-management-service:8007/"
+      USER_MGMT_AUTH_URL: "http://user-management-service:8007/auth/user-credentials"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "9000:9000"
+
+  user-management-service:
+    build:
+      context: ./UserManagement
+      dockerfile: Dockerfile
+    image: user-management-service:latest
+    depends_on:
+      - user-management-postgres
+    ports:
+      - "8007:8007"
+    environment:
+      DATABASE_URL: "postgresql+psycopg2://postgres:postgres@user-management-postgres:5432/UserManagement"
+
+  user-management-postgres:
+    image: postgres:16
+    container_name: user-management-postgres
+    restart: unless-stopped
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-UserManagement}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  weaviate:
+    image: cr.weaviate.io/semitechnologies/weaviate:latest
+    restart: unless-stopped
+    ports:
+      - "8082:8080"
+      - "50051:50051"
+    environment:
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: "true" # DEV; za prod uključi auth
+      PERSISTENCE_DATA_PATH: "/var/lib/weaviate"
+      QUERY_DEFAULTS_LIMIT: "25"
+      CLUSTER_HOSTNAME: "node1"
+      DISABLE_TELEMETRY: "true"
+      # ENABLE_API_BASED_MODULES: "false"  # nije nam potrebno, šaljemo svoje vektore
+    volumes:
+      - weaviate_data:/var/lib/weaviate
+
+  writing-assistant-service:
+    build:
+      context: ./WritingAssistant
+      dockerfile: ./Dockerfile
+    image: writing-assistant-service:latest
+    depends_on:
+      - weaviate
+    environment:
+      DATABASE_URL: "sqlite:////app/data/writing_assistant.db"
+    env_file:
+      - ./WritingAssistant/.env
+
+    volumes:
+      - ./WritingAssistant:/app
+      - wa_data:/app/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8000:8000"
+
+volumes:
+  pg_data:
+  wa_data:
+  weaviate_data:

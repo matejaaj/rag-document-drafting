@@ -1,0 +1,48 @@
+<section class="dm-card">
+  <admin-knowledge-base-toolbar
+    [breadcrumbs]="knowledgeBase.breadcrumbs"
+    [newFolderName]="knowledgeBase.newFolderName"
+    [creatingFolder]="knowledgeBase.creatingFolder"
+    [documentTypes]="knowledgeBase.documentTypes"
+    [loadingDocumentTypes]="knowledgeBase.loadingDocumentTypes"
+    [selectedDocumentTypeId]="knowledgeBase.selectedDocumentTypeId"
+    [selectedFile]="knowledgeBase.selectedFile"
+    [uploading]="knowledgeBase.uploading"
+    (openBreadcrumbRequested)="knowledgeBase.openBreadcrumb($event)"
+    (newFolderNameChange)="knowledgeBase.changeNewFolderName($event)"
+    (createFolderRequested)="knowledgeBase.createFolder()"
+    (selectedDocumentTypeIdChange)="knowledgeBase.selectDocumentType($event)"
+    (selectedFileChange)="knowledgeBase.selectFile($event)"
+    (uploadRequested)="knowledgeBase.uploadSelectedFile()"
+    (refreshRequested)="knowledgeBase.refresh()"
+  ></admin-knowledge-base-toolbar>
+
+  <div class="dm-status" *ngIf="knowledgeBase.loading">Učitavam...</div>
+
+  <admin-knowledge-base-folder-contents
+    [folders]="knowledgeBase.folders"
+    [files]="knowledgeBase.files"
+    [loading]="knowledgeBase.loading"
+    [deletingFolderIds]="knowledgeBase.deletingFolderIds"
+    [deletingFileIds]="knowledgeBase.deletingFileIds"
+    (openFolderRequested)="knowledgeBase.openFolder($event)"
+    (deleteFolderRequested)="knowledgeBase.deleteFolder($event)"
+    (showSummaryRequested)="knowledgeBase.showSummary($event)"
+    (deleteFileRequested)="knowledgeBase.deleteFile($event)"
+  ></admin-knowledge-base-folder-contents>
+
+  <div class="dm-summary">
+    <h3>Sažetak dokumenta</h3>
+
+    <div class="dm-status" *ngIf="knowledgeBase.loadingSummary">Učitavam sažetak...</div>
+
+    <div *ngIf="!knowledgeBase.loadingSummary">
+      <div class="empty" *ngIf="!knowledgeBase.summaryText">
+        Klikni na fajl da prikažeš sažetak.
+      </div>
+      <div class="summary-box" *ngIf="knowledgeBase.summaryText">
+        {{ knowledgeBase.summaryText }}
+      </div>
+    </div>
+  </div>
+</section>

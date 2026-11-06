@@ -1,0 +1,128 @@
+<section class="wa-card">
+  <div class="wa-section-head">
+    <div class="wa-title-wrap">
+      <ng-container *ngIf="!editingTitle; else titleEditor">
+        <h3 class="wa-section-title">{{ section.name || "Sekcija" }}</h3>
+        <div class="wa-edit-icon" (click)="startTitleEdit()">✎</div>
+      </ng-container>
+
+      <ng-template #titleEditor>
+        <div class="wa-edit-wrap">
+          <input
+            class="wa-input"
+            type="text"
+            [(ngModel)]="titleDraft"
+            placeholder="Naziv sekcije"
+            (keyup.enter)="saveTitle()"
+            (blur)="saveTitle()"
+            [class.invalid]="invalidTitle"
+          />
+          <button class="wa-btn small" (click)="saveTitle()">✔</button>
+          <button class="wa-btn danger small" (click)="cancelTitleEdit()">
+            ✕
+          </button>
+        </div>
+      </ng-template>
+    </div>
+
+    <div class="wa-section-actions">
+      <div class="iter-nav" *ngIf="showIterationNav">
+        <button
+          class="wa-btn small"
+          [disabled]="section.loadingIteration || currentSeqNo <= 1"
+          [ngStyle]="{ visibility: currentSeqNo > 1 ? 'visible' : 'hidden' }"
+          (click)="showPreviousIteration()"
+        >
+          ←
+        </button>
+        <span class="iter-indicator">{{ currentSeqNo }}/{{ maxSeqNo }}</span>
+        <button
+          class="wa-btn small"
+          [disabled]="section.loadingIteration || currentSeqNo >= maxSeqNo"
+          [ngStyle]="{ visibility: currentSeqNo < maxSeqNo ? 'visible' : 'hidden' }"
+          (click)="showNextIteration()"
+        >
+          →
+        </button>
+      </div>
+
+      <button
+        class="wa-btn small"
+        type="button"
+        *ngIf="section.latestIteration?.modelOutput?.id"
+        (click)="openFeedbackDialog()"
+      >
+        ⭐ Oceni
+      </button>
+
+      <button
+        class="wa-btn"
+        (click)="generate()"
+        [disabled]="section.generating || section.loadingIteration"
+        [class.loading]="section.generating"
+        [attr.aria-busy]="!!section.generating"
+        title="{{ section.generating ? 'Generisanje u toku…' : '' }}"
+      >
+        <span class="btn-content">
+          <span class="spinner" *ngIf="section.generating" aria-hidden="true"></span>
+          <span>{{
+            section.generating ? "Generisanje…" : "⚡ Generiši sadržaj sekcije"
+          }}</span>
+        </span>
+      </button>
+
+      <button class="wa-btn danger" (click)="deleteRequested.emit(section)">Ukloni sekciju</button>
+    </div>
+  </div>
+
+  <div class="wa-container">
+    <div class="wa-col">
+      <label class="wa-label">Zahtevi za sadržaj sekcije</label>
+      <textarea
+        class="wa-input"
+        [(ngModel)]="instructionText"
+        rows="4"
+        placeholder="Specifični zahtevi za ovu sekciju dokumenta…"
+      ></textarea>
+    </div>
+
+    <div class="wa-col">
+      <div class="result-head">
+        <label class="wa-label">Rezultat</label>
+        <div class="result-actions" *ngIf="resultStatus">
+          <button
+            class="wa-btn success small"
+            type="button"
+            [disabled]="section.loadingIteration || currentSeqNo === 0"
+            (click)="saveDraft()"
+          >
+            Sačuvaj
+          </button>
+          <div
+            class="status"
+            [class.unsaved]="resultStatus === 'unsaved'"
+            [class.saved]="resultStatus === 'saved'"
+          >
+            {{ resultStatus === "saved" ? "Promene uspešno sačuvane" : "Promene nisu sačuvane" }}
+          </div>
+        </div>
+      </div>
+
+      <textarea
+        #resultTextarea
+        class="wa-input wa-result"
+        [(ngModel)]="resultDraft"
+        (ngModelChange)="onResultChange()"
+        placeholder=""
+      ></textarea>
+    </div>
+  </div>
+</section>
+
+<wa-output-feedback-dialog
+  *ngIf="section.feedbackDialogOpen"
+  [modelOutputId]="section.latestIteration?.modelOutput?.id || 0"
+  [submitting]="!!section.submittingFeedback"
+  (closeRequested)="closeFeedbackDialog()"
+  (submitRequested)="submitFeedback($event)"
+></wa-output-feedback-dialog>

@@ -1,0 +1,25 @@
+<div class="wa-preview">
+  <div class="wa-preview-bar">
+    <button class="wa-btn" (click)="closeRequested.emit()">← Nazad na uređivanje</button>
+    <button
+      class="wa-btn"
+      (click)="downloadPdfRequested.emit()"
+      [disabled]="downloading"
+      [class.loading]="downloading"
+      title="Preuzmi PDF"
+    >
+      📄 {{ downloading ? "Pripremam…" : "Preuzmi kao PDF" }}
+    </button>
+  </div>
+
+  <article class="doc">
+    <h1 class="doc-title">{{ title || "Dokument" }}</h1>
+
+    <ng-container *ngFor="let section of sectionsInOrder; trackBy: trackById">
+      <section class="doc-section" *ngIf="(section.name || '').trim() || getSectionText(section)">
+        <h2 class="doc-section-title">{{ section.name || "Sekcija" }}</h2>
+        <div class="doc-text">{{ getSectionText(section) || "—" }}</div>
+      </section>
+    </ng-container>
+  </article>
+</div>

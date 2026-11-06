@@ -1,0 +1,130 @@
+.pa-card {
+  border: 1px solid var(--wa-line);
+  background: var(--wa-panel);
+  border-radius: var(--wa-radius);
+  padding: 16px;
+}
+
+.pa-card-title {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+}
+
+.wa-label {
+  font-size: 12px;
+  color: var(--wa-muted);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.pa-grid-3 {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: end;
+}
+
+.pa-grid-3 .left {
+  display: flex;
+  gap: 20px;
+}
+
+.wa-input {
+  width: 100%;
+  background: var(--wa-panel-2);
+  color: var(--wa-text);
+  border: 1px solid var(--wa-line);
+  border-radius: 10px;
+  padding: 10px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.wa-input.name {
+  max-width: 300px;
+}
+
+.pa-field .wa-input[disabled] {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.pa-doc-type {
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 12px;
+  border-radius: 999px;
+  background-color: #a0a0a5;
+  color: var(--wa-text);
+  border: 1px solid var(--wa-line);
+  user-select: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.wa-doc-type-select {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  line-height: 1.2;
+  background-image: linear-gradient(45deg, transparent 50%, var(--wa-muted) 50%),
+    linear-gradient(135deg, var(--wa-muted) 50%, transparent 50%);
+  background-position: calc(100% - 18px) calc(50% - 3px),
+    calc(100% - 12px) calc(50% - 3px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 28px;
+}
+
+.wa-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.wa-title {
+  margin: 0;
+  font-size: 18px;
+}
+
+.wa-edit-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+
+.wa-input.small {
+  flex: 0 0 auto;
+  max-width: 180px;
+}
+
+.wa-input.invalid {
+  border-color: #d32f2f;
+}
+
+.action-buttons-right {
+  display: flex;
+  gap: 5px;
+}
+
+.wa-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.wa-btn.small {
+  min-width: auto;
+  padding: 4px 8px;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.wa-btn.icon {
+  padding: 4px 6px;
+  font-size: 14px;
+  min-width: auto;
+  line-height: 1;
+}

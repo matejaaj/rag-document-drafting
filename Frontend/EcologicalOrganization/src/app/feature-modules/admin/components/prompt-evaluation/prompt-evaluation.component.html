@@ -1,0 +1,62 @@
+<div class="pe">
+  <div class="pe-head">
+    <div class="pe-tabs">
+      <button
+        class="pe-tab"
+        [class.active]="activeTab === 'analytics'"
+        (click)="activeTabChange.emit('analytics')"
+      >
+        Analitika
+      </button>
+      <button
+        class="pe-tab"
+        [class.active]="activeTab === 'feedback'"
+        (click)="activeTabChange.emit('feedback')"
+      >
+        Ocene i komentari
+      </button>
+    </div>
+
+    <div class="pe-tabs">
+      <button
+        class="pe-tab"
+        [class.active]="scope === 'prompt'"
+        (click)="scopeChange.emit('prompt')"
+      >
+        Sve verzije
+      </button>
+      <button
+        class="pe-tab"
+        [class.active]="scope === 'version'"
+        (click)="scopeChange.emit('version')"
+      >
+        Samo ova verzija
+      </button>
+    </div>
+  </div>
+
+  <div class="pe-body">
+    <ng-container *ngIf="activeTab === 'analytics'">
+      <ng-container *ngIf="!loading && !error; else stateTemplate">
+        <admin-prompt-analytics [analytics]="analytics"></admin-prompt-analytics>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="activeTab === 'feedback'">
+      <admin-prompt-feedback-list
+        [analytics]="analytics"
+        [entries]="feedbackEntries"
+        [page]="feedbackPage"
+        [pageCount]="feedbackPageCount"
+        (previousPageRequested)="previousFeedbackPageRequested.emit()"
+        (nextPageRequested)="nextFeedbackPageRequested.emit()"
+        (toggleDetailsRequested)="toggleFeedbackDetailsRequested.emit($event)"
+      ></admin-prompt-feedback-list>
+    </ng-container>
+  </div>
+
+  <ng-template #stateTemplate>
+    <div class="pe-state" *ngIf="loading">Učitavam…</div>
+    <div class="pe-state error" *ngIf="!loading && error">{{ error }}</div>
+  </ng-template>
+</div>

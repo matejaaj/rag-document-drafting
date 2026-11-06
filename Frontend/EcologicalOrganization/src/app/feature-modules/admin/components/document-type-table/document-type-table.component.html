@@ -1,0 +1,93 @@
+<table *ngIf="!loading; else loadingTemplate" class="wa-table">
+  <colgroup>
+    <col style="width: 30%" />
+    <col style="width: 40%" />
+    <col style="width: 20%" />
+    <col style="width: 10%" />
+  </colgroup>
+  <thead>
+    <tr>
+      <th (click)="sortRequested.emit('name')">
+        Naziv
+        <span class="sort-indicator" [class.active]="ordering.includes('name')">
+          {{ sortArrow("name") }}
+        </span>
+      </th>
+      <th (click)="sortRequested.emit('description')">
+        Opis
+        <span class="sort-indicator" [class.active]="ordering.includes('description')">
+          {{ sortArrow("description") }}
+        </span>
+      </th>
+      <th (click)="sortRequested.emit('updated_at')">
+        Ažurirano
+        <span class="sort-indicator" [class.active]="ordering.includes('updated_at')">
+          {{ sortArrow("updated_at") }}
+        </span>
+      </th>
+      <th>Akcije</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let documentType of documentTypes">
+      <ng-container *ngIf="editedDocumentTypeId !== documentType.id; else editRowTemplate">
+        <td>{{ documentType.name }}</td>
+        <td class="description-cell">{{ documentType.description }}</td>
+        <td>{{ documentType.updatedAt | date : "short" }}</td>
+        <td class="actions-cell">
+          <div class="actions-wrap" *ngIf="!isDefaultDocumentType(documentType)">
+            <button class="wa-btn small icon" (click)="editRequested.emit(documentType)">
+              ✎
+            </button>
+            <button class="wa-btn small danger icon" (click)="deleteRequested.emit(documentType.id)">
+              🗑
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-template #editRowTemplate>
+        <td>
+          <div class="wa-edit-wrap full">
+            <input
+              class="wa-input"
+              type="text"
+              [(ngModel)]="nameDraft"
+              placeholder="Naziv"
+            />
+          </div>
+        </td>
+        <td>
+          <div class="wa-edit-wrap full">
+            <textarea
+              #descriptionTextArea
+              class="wa-input"
+              [(ngModel)]="descriptionDraft"
+              placeholder="Opis"
+              (input)="resizeDescriptionTextArea()"
+            ></textarea>
+          </div>
+        </td>
+        <td>{{ documentType.updatedAt | date : "short" }}</td>
+        <td class="actions-cell">
+          <div class="actions-wrap" *ngIf="!isDefaultDocumentType(documentType)">
+            <button
+              class="wa-btn small primary"
+              (click)="saveRequested.emit({ name: nameDraft, description: descriptionDraft })"
+            >
+              ✔
+            </button>
+            <button class="wa-btn small danger" (click)="cancelEditRequested.emit()">
+              ✕
+            </button>
+          </div>
+        </td>
+      </ng-template>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #loadingTemplate>
+  <div class="loading">Učitavanje...</div>
+</ng-template>

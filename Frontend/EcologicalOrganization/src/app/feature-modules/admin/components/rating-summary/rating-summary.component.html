@@ -1,0 +1,68 @@
+<div class="fs" *ngIf="analytics">
+  <div class="fs-wrap">
+    <div class="fs-left">
+      <div class="fs-line">
+        <div class="fs-label">Prosek:</div>
+        <div class="fs-stars-simple">
+          <span
+            *ngFor="let star of stars; let starIndex = index"
+            class="star"
+            [class.on]="starIndex < filledStarCount(analytics.ratingAvg)"
+            >★</span
+          >
+        </div>
+        <div class="fs-val num">
+          <span class="fs-muted">({{ analytics.ratingCount }})</span>
+          {{ analytics.ratingAvg | number : "1.2-2" }}
+        </div>
+      </div>
+
+      <div
+        class="fs-line"
+        *ngIf="analytics.bayesScore !== null && analytics.bayesScore !== undefined"
+      >
+        <div class="fs-label">Ponderisan Bajesov prosek:</div>
+        <div class="fs-stars-simple">
+          <span
+            *ngFor="let star of stars; let starIndex = index"
+            class="star"
+            [class.on]="starIndex < filledStarCount(analytics.bayesScore)"
+            >★</span
+          >
+        </div>
+        <div class="fs-val num">
+          {{ analytics.bayesScore | number : "1.2-2" }}
+        </div>
+      </div>
+
+      <div class="fs-line">
+        <div class="fs-label">Medijana:</div>
+        <div class="fs-stars-simple">
+          <span
+            *ngFor="let star of stars; let starIndex = index"
+            class="star"
+            [class.on]="starIndex < filledStarCount(analytics.ratingMedian)"
+            >★</span
+          >
+        </div>
+        <div class="fs-val num">
+          {{ analytics.ratingMedian | number : "1.2-2" }}
+        </div>
+      </div>
+    </div>
+
+    <div class="fs-right">
+      <div class="fs-row" *ngFor="let bar of ratingBars">
+        <div class="fs-row-label">{{ bar.rating }} ★</div>
+        <div class="fs-bar">
+          <div class="fs-bar-fill" [style.width.%]="bar.widthPercent"></div>
+        </div>
+        <div class="fs-row-count num">{{ bar.count }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fs" *ngIf="!analytics">
+  <div class="fs-empty muted">Nema ocena za prikaz.</div>
+</div>

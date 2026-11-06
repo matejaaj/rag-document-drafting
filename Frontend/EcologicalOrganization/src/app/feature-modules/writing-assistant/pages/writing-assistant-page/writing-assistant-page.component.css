@@ -1,0 +1,21 @@
+.app {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  height: 100vh;
+}
+
+.app.show-templates {
+  grid-template-columns: 320px 280px 1fr;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.workspace {
+  flex: 1;
+  overflow: auto;
+  padding: 24px;
+}

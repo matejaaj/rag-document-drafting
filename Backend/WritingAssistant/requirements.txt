@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+pydantic
+sqlacodegen
+dependency-injector
+loguru
+python-multipart
+openai
+python-dotenv
+xhtml2pdf
+weaviate-client
+huggingface_hub
+pymupdf
+numpy

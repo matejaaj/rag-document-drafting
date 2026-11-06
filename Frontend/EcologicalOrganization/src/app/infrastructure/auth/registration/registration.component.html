@@ -1,0 +1,47 @@
+<form [formGroup]="registrationForm" (ngSubmit)="register()">
+  <div>
+    <div class="heading">
+      <button class="back-btn" type="button" (click)="goBack()">←</button>
+      <h2>Forma za kreiranje novog korisnika</h2>
+    </div>
+
+    <mat-form-field>
+      <mat-label>Ime</mat-label>
+      <input matInput formControlName="name" type="text" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Prezime</mat-label>
+      <input matInput formControlName="surname" type="text" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Email adresa</mat-label>
+      <input matInput formControlName="email" type="email" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Lozinka</mat-label>
+      <input matInput formControlName="password" type="password" />
+    </mat-form-field>
+
+    <ng-container *ngFor="let subsystem of subsystems">
+      <mat-form-field>
+        <mat-label>{{ subsystem }}</mat-label>
+        <mat-select [formControlName]="subsystem" [disabled]="subsystem === 'WA'">
+          <ng-container *ngIf="subsystem === 'WA'; else normalOptions">
+            <mat-option value="EMPLOYEE">Zaposleni</mat-option>
+          </ng-container>
+          <ng-template #normalOptions>
+            <mat-option value="EMPLOYEE">Zaposleni</mat-option>
+            <mat-option value="MANAGER">Menadžer</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+
+    <button color="primary" type="submit" mat-raised-button>
+      Kreiraj korisnika
+    </button>
+  </div>
+</form>

@@ -1,0 +1,27 @@
+<div class="wa-editor">
+  <div class="wa-editor-inner">
+    <admin-prompt-details-form
+      [title]="prompt.title"
+      [documentTypes]="documentTypes"
+      [documentTypeId]="prompt.documentTypeId"
+      [isNewPrompt]="isNewPrompt"
+      (renameRequested)="renamePromptRequested.emit($event)"
+      (deleteRequested)="deletePromptRequested.emit(prompt.id)"
+      (createVersionRequested)="createVersionRequested.emit()"
+      (saveNewPromptRequested)="saveNewPromptRequested.emit($event)"
+    ></admin-prompt-details-form>
+
+    <admin-prompt-version-form
+      *ngIf="selectedVersion"
+      [version]="selectedVersion"
+      (saveBasicInfoRequested)="saveVersionBasicInfoRequested.emit($event)"
+      (savePromptTextRequested)="saveVersionPromptTextRequested.emit($event)"
+      (activateRequested)="activateVersionRequested.emit($event)"
+      (deleteRequested)="deleteVersionRequested.emit($event)"
+      (saveNewVersionRequested)="saveNewVersionRequested.emit($event)"
+      (testRequested)="testVersionRequested.emit($event)"
+    ></admin-prompt-version-form>
+
+    <ng-content></ng-content>
+  </div>
+</div>

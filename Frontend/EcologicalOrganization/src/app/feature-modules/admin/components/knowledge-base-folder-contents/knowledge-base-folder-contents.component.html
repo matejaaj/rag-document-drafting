@@ -1,0 +1,57 @@
+<div class="dm-columns">
+  <div class="dm-column">
+    <h3>Folderi</h3>
+    <div class="empty" *ngIf="!folders.length && !loading">Nema foldera.</div>
+
+    <ul class="grid">
+      <li class="card" *ngFor="let folder of folders" (dblclick)="openFolderRequested.emit(folder)">
+        <div class="icon">📁</div>
+        <div class="name" [title]="folder.name">{{ folder.name }}</div>
+
+        <div class="row-buttons">
+          <button class="mini" (click)="openFolderRequested.emit(folder)" type="button">
+            Otvori
+          </button>
+          <button
+            class="mini danger"
+            (click)="deleteFolderRequested.emit(folder); $event.stopPropagation()"
+            [disabled]="deletingFolderIds.has(folder.id)"
+            type="button"
+            title="Obriši folder"
+          >
+            {{ deletingFolderIds.has(folder.id) ? "Brišem..." : "Obriši" }}
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="dm-column">
+    <h3>Fajlovi</h3>
+    <div class="empty" *ngIf="!files.length && !loading">Nema fajlova.</div>
+
+    <ul class="grid">
+      <li class="card clickable" *ngFor="let file of files" (click)="showSummaryRequested.emit(file)">
+        <div class="icon">📄</div>
+        <div class="name" [title]="file.originalName">
+          {{ file.originalName }}
+        </div>
+        <div class="muted">
+          {{ formatFileSize(file.sizeBytes) }} · {{ file.mimeType || "unknown" }}
+        </div>
+
+        <div class="row-buttons">
+          <button
+            class="mini danger"
+            (click)="deleteFileRequested.emit(file); $event.stopPropagation()"
+            [disabled]="deletingFileIds.has(file.id)"
+            type="button"
+            title="Obriši fajl"
+          >
+            {{ deletingFileIds.has(file.id) ? "Brišem..." : "Obriši" }}
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

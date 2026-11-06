@@ -1,0 +1,75 @@
+<div class="app" [class.show-templates]="templatesSidebarVisible">
+  <wa-conversations-sidebar
+    [conversations]="conversationsStore.conversations"
+    [loading]="conversationsStore.loading"
+    [loadingMore]="conversationsStore.loadingMore"
+    [selectedConversationId]="sessionEditorStore.activeSession?.id"
+    [showAdminLink]="showAdminLink"
+    (createRequested)="openTemplatesSidebar()"
+    (openRequested)="openConversation($event)"
+    (deleteRequested)="deleteConversation($event)"
+    (searchTermChange)="conversationsStore.searchConversations($event)"
+    (loadMoreRequested)="conversationsStore.loadMoreConversations()"
+    (homeRequested)="goHome()"
+    (logoutRequested)="logout()"
+  ></wa-conversations-sidebar>
+
+  <wa-templates-sidebar
+    *ngIf="templatesSidebarVisible"
+    [templates]="templatesStore.templates"
+    [documentTypes]="templatesStore.documentTypes"
+    [loading]="templatesStore.loading"
+    [loadingMore]="templatesStore.loadingMore"
+    [creatingConversation]="conversationsStore.creatingConversation"
+    [deletingTemplateId]="templatesStore.deletingTemplateId"
+    [(uploadDialogOpen)]="templatesStore.uploadDialogOpen"
+    [uploading]="templatesStore.uploading"
+    (closeRequested)="templatesSidebarVisible = false"
+    (createConversationRequested)="createConversation($event)"
+    (deleteRequested)="templatesStore.deleteTemplate($event)"
+    (searchTermChange)="templatesStore.searchTemplates($event)"
+    (loadMoreRequested)="templatesStore.loadMoreTemplates()"
+    (uploadRequested)="templatesStore.uploadTemplate($event)"
+  >
+  </wa-templates-sidebar>
+
+  <main class="main">
+    <div class="workspace">
+      <wa-welcome-screen
+        *ngIf="!sessionEditorStore.activeSession && !templatesSidebarVisible"
+        (createRequested)="openTemplatesSidebar()"
+      >
+      </wa-welcome-screen>
+
+      <wa-session-editor
+        *ngIf="sessionEditorStore.activeSession && sessionEditorStore.overview"
+        [hidden]="previewVisible"
+        [session]="sessionEditorStore.activeSession"
+        [overview]="sessionEditorStore.overview"
+        [documentTypes]="templatesStore.documentTypes"
+        (saveTitleRequested)="renameSession($event)"
+        (documentTypeChange)="sessionEditorStore.changeDocumentType($event)"
+        (globalInstructionChange)="sessionEditorStore.changeGlobalInstruction($event)"
+        (addSectionRequested)="sessionEditorStore.addSection()"
+        (openPreviewRequested)="previewVisible = true"
+        (saveSectionNameRequested)="sessionEditorStore.saveSectionName($event)"
+        (deleteSectionRequested)="sessionEditorStore.deleteSection($event)"
+        (generateSectionRequested)="sessionEditorStore.generateSectionText($event)"
+        (loadSectionIterationRequested)="sessionEditorStore.loadSectionIteration($event)"
+        (saveSectionDraftRequested)="sessionEditorStore.saveSectionDraft($event)"
+        (feedbackDialogOpenChange)="sessionEditorStore.setFeedbackDialogOpen($event)"
+        (submitFeedbackRequested)="sessionEditorStore.submitFeedback($event)"
+      ></wa-session-editor>
+
+      <wa-document-preview
+        *ngIf="sessionEditorStore.activeSession && sessionEditorStore.overview"
+        [hidden]="!previewVisible"
+        [title]="sessionEditorStore.documentTitle"
+        [sections]="sessionEditorStore.overview.sections"
+        [downloading]="sessionEditorStore.downloadingPdf"
+        (closeRequested)="previewVisible = false"
+        (downloadPdfRequested)="sessionEditorStore.downloadPdf()"
+      ></wa-document-preview>
+    </div>
+  </main>
+</div>

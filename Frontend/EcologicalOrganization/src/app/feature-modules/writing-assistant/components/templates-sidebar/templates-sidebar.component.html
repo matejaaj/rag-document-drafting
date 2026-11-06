@@ -1,0 +1,69 @@
+<aside class="sidebar2">
+  <div class="templates-head">
+    <strong>Šabloni</strong>
+    <button
+      class="wa-btn ghost smallbtn"
+      type="button"
+      (click)="closeRequested.emit()"
+      title="Sakrij"
+    >
+      ❌
+    </button>
+  </div>
+
+  <div class="actions">
+    <button class="wa-btn full" type="button" (click)="uploadDialogOpenChange.emit(true)">
+      + Dodaj novi šablon
+    </button>
+  </div>
+
+  <app-search-box
+    placeholder="Pretraži po nazivu ili tipu dokumenta"
+    (searchTermChange)="search($event)"
+  ></app-search-box>
+
+  <div *ngIf="loading && !loadingMore" class="loading">Učitavanje…</div>
+
+  <div
+    #scrollArea
+    class="template-list"
+    (appScrollNearBottom)="loadMoreRequested.emit()"
+    [class.disabled]="loading && !loadingMore"
+  >
+    <div
+      class="t-item"
+      *ngFor="let template of templates"
+      [class.disabled]="creatingConversation && template.id === deletingTemplateId"
+      (click)="selectTemplate(template)"
+    >
+      <div class="t-meta">
+        <div class="t-name">{{ template.name }}</div>
+        <div class="t-desc">
+          {{ template.documentTypeName || "Dokument tip #" + template.documentTypeId }}
+        </div>
+      </div>
+
+      <div class="menu-wrap" (click)="$event.stopPropagation()">
+        <button class="menu-btn" (click)="toggleMenu(template.id)">⋮</button>
+        <div class="menu" *ngIf="openMenuTemplateId === template.id">
+          <button class="menu-item danger" (click)="deleteTemplate(template)">
+            Obriši
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="infinite-loader" *ngIf="loadingMore">
+      <span class="spinner" aria-hidden="true"></span>
+      <span>Učitavanje još…</span>
+    </div>
+  </div>
+</aside>
+
+<wa-template-upload-dialog
+  *ngIf="uploadDialogOpen"
+  [documentTypes]="documentTypes"
+  [uploading]="uploading"
+  (closeRequested)="uploadDialogOpenChange.emit(false)"
+  (uploadRequested)="uploadRequested.emit($event)"
+></wa-template-upload-dialog>

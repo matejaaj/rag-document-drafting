@@ -1,0 +1,61 @@
+<div class="sa-table">
+  <table>
+    <thead>
+      <tr>
+        <th
+          *ngFor="let column of columns"
+          (click)="sortRequested.emit(column.key)"
+          [attr.aria-sort]="ariaSort(column.key)"
+        >
+          {{ column.label }}
+          <span
+            class="sa-sort"
+            [class.active]="sortColumn === column.key"
+            [class.desc]="sortDirection === 'desc'"
+          ></span>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let row of rows" [class.total]="row.documentTypeId === null">
+        <td>
+          <ng-container *ngIf="row.documentTypeId !== null; else totalRowName">
+            {{ row.documentTypeName }}
+          </ng-container>
+          <ng-template #totalRowName>
+            <span class="sa-total-chip">Svi</span>
+          </ng-template>
+        </td>
+
+        <td>{{ row.numExecutions | number : "1.0-0" }}</td>
+        <td>
+          {{ row.avgDurationMs == null ? "—" : (row.avgDurationMs | number : "1.0-0") }}
+        </td>
+        <td>
+          {{ row.avgInputTokens == null ? "—" : (row.avgInputTokens | number : "1.0-0") }}
+        </td>
+        <td>
+          {{ row.avgOutputTokens == null ? "—" : (row.avgOutputTokens | number : "1.0-0") }}
+        </td>
+        <td>${{ row.totalCostUsd | number : "1.2-2" }}</td>
+        <td>
+          {{ row.avgCostUsd == null ? "—" : "$" + (row.avgCostUsd | number : "1.4-4") }}
+        </td>
+        <td>
+          <ng-container *ngIf="row.errorRate != null; else emptyValue">
+            {{ row.errorRate * 100 | number : "1.1-1" }}%
+          </ng-container>
+          <ng-template #emptyValue>—</ng-template>
+        </td>
+        <td>{{ row.ratingCount | number : "1.0-0" }}</td>
+        <td>
+          {{ row.ratingAvg == null ? "—" : (row.ratingAvg | number : "1.1-2") }}
+        </td>
+        <td>
+          {{ row.ratingMedian == null ? "—" : (row.ratingMedian | number : "1.0-0") }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,97 @@
+.wa-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  overflow: hidden;
+  table-layout: fixed;
+}
+
+.wa-table th,
+.wa-table td {
+  border: 1px solid var(--wa-line);
+  padding: 8px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.wa-table th {
+  background: var(--wa-panel-2);
+  cursor: pointer;
+  color: var(--wa-muted);
+  font-weight: 600;
+  user-select: none;
+}
+
+.wa-table tr:nth-child(even) {
+  background: var(--wa-bg);
+}
+
+.wa-table td.description-cell {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+}
+
+.wa-edit-wrap.full {
+  display: flex;
+  width: 100%;
+}
+
+.wa-input {
+  display: block;
+  width: 100%;
+  background: var(--wa-panel-2);
+  color: var(--wa-text);
+  border: 1px solid var(--wa-line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.wa-input:focus {
+  outline: none;
+  border-color: var(--wa-accent);
+  box-shadow: 0 0 0 2px var(--wa-selected);
+}
+
+textarea.wa-input {
+  width: 100%;
+  min-height: 44px;
+  line-height: 1.4;
+  resize: none;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.wa-table td.actions-cell {
+  padding: 0;
+}
+
+.actions-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 100%;
+  padding: 4px;
+}
+
+.wa-btn.small {
+  min-width: 30px;
+  height: 30px;
+  padding: 0;
+  font-size: 14px;
+}
+.wa-btn.icon {
+  justify-content: center;
+}
+
+.sort-indicator {
+  margin-left: 6px;
+  font-size: 12px;
+  color: var(--wa-muted);
+}
+.sort-indicator.active {
+  color: var(--wa-accent);
+}

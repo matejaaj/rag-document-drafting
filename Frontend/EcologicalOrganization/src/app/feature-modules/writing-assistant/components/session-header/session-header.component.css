@@ -1,0 +1,116 @@
+.wa-card {
+  background: var(--wa-panel);
+  border: 1px solid var(--wa-line);
+  border-radius: 14px;
+  padding: 16px;
+  padding-right: 40px;
+}
+
+.wa-header-top {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.wa-header-left {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  flex: 1;
+}
+
+.wa-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wa-title {
+  margin: 0;
+  font-size: 18px;
+}
+
+.wa-edit-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.wa-doc-type {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 180px;
+}
+
+.wa-doc-desc {
+  margin-bottom: 12px;
+}
+
+.wa-doc-desc-text {
+  font-size: 13px;
+  color: var(--wa-muted);
+  white-space: pre-wrap;
+}
+
+.wa-stack {
+  display: grid;
+  gap: 12px;
+}
+
+.wa-label {
+  font-size: 12px;
+  color: var(--wa-muted);
+  display: block;
+}
+
+.wa-input {
+  width: 100%;
+  background: var(--wa-panel-2);
+  color: var(--wa-text);
+  border: 1px solid var(--wa-line);
+  border-radius: 10px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.wa-input.small {
+  max-width: 200px;
+}
+
+.wa-input.invalid {
+  border-color: #d32f2f;
+}
+
+.wa-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.wa-btn.small {
+  min-width: auto;
+  padding: 4px 8px;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.wa-btn.icon {
+  padding: 4px 6px;
+  font-size: 14px;
+  min-width: auto;
+  line-height: 1;
+}
+
+.pa-doc-type {
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 12px;
+  border-radius: 999px;
+  background-color: #a0a0a5;
+  color: var(--wa-text);
+  border: 1px solid var(--wa-line);
+  user-select: none;
+  width: 100%;
+  box-sizing: border-box;
+}

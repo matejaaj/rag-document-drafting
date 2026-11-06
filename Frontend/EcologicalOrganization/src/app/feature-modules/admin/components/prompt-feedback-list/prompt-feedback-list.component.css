@@ -1,0 +1,148 @@
+.pf {
+  margin-top: 12px;
+}
+.pf-state {
+  padding: 8px 4px;
+  font-size: 14px;
+}
+.pf-state.error {
+  color: #b91c1c;
+}
+
+.pf-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pf-empty {
+  padding: 12px;
+  border: 1px dashed #d1d5db;
+  border-radius: 10px;
+  color: #6b7280;
+}
+
+.pf-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #fff;
+}
+
+.pf-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.pf-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+.pf-avatar {
+  font-size: 16px;
+}
+.pf-name {
+  font-size: 14px;
+}
+
+.pf-stars {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.star {
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 2px;
+  color: #e5e7eb;
+}
+.star.filled {
+  color: #2563eb;
+}
+.pf-date {
+  font-size: 12px;
+  color: #6b7280;
+  margin-left: 8px;
+}
+
+.pf-comment {
+  margin: 8px 0 6px;
+  font-size: 14px;
+}
+
+.pf-toggle {
+  border: none;
+  background: transparent;
+  color: #111827;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 4px 0;
+  text-align: left;
+}
+.pf-toggle:hover {
+  text-decoration: underline;
+}
+
+.pf-details {
+  margin-top: 8px;
+}
+.pf-details-loading {
+  font-size: 13px;
+  color: #6b7280;
+  padding: 4px 0;
+}
+
+.pf-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.pf-col {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #f9fafb;
+}
+.pf-col-title {
+  padding: 8px 10px;
+  font-weight: 600;
+  border-bottom: 1px solid #e5e7eb;
+}
+.pf-pre {
+  margin: 0;
+  padding: 10px;
+  white-space: pre-wrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 12px;
+}
+
+.pf-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 8px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.pf-indicator {
+  opacity: 0.8;
+  font-size: 0.9rem;
+  min-width: 4.5ch;
+  text-align: center;
+}
+.pf-btn.small {
+  min-width: auto;
+  padding: 6px 10px;
+  font-size: 12px;
+  line-height: 1;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  cursor: pointer;
+}
+.pf-btn.small:disabled {
+  opacity: 0.5;
+  cursor: default;
+}

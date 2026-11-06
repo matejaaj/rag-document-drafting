@@ -1,0 +1,47 @@
+.welcome {
+  max-width: 720px;
+  margin: 32px auto;
+  border: 1px dashed var(--wa-line);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  background: var(--wa-panel);
+}
+
+.welcome h2 {
+  margin: 0 0 6px;
+  font-size: 20px;
+}
+
+.welcome p {
+  margin: 0 0 16px;
+  color: var(--wa-muted);
+}
+
+.wa-btn {
+  appearance: none;
+  border: 1px solid var(--wa-line);
+  background: var(--wa-panel-2);
+  color: var(--wa-text);
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+
+.wa-btn:hover {
+  background: var(--wa-hover);
+}
+
+.wa-btn.primary {
+  border-color: transparent;
+  background: var(--wa-accent);
+  color: #fff;
+}
+
+.wa-btn.primary:hover {
+  background: var(--wa-accent-2);
+}

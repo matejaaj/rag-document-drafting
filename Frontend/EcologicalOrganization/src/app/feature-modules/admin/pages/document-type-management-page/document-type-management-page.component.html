@@ -1,0 +1,21 @@
+<div class="doc-type-container">
+  <div class="header-row">
+    <button class="back-btn" (click)="goBack()">←</button>
+    <h2 class="doc-type-title">Upravljanje tipovima dokumenata</h2>
+    <button class="wa-btn small primary" (click)="documentTypeManagement.addDocumentType()">
+      + Dodaj novi tip dokumenta
+    </button>
+  </div>
+
+  <admin-document-type-table
+    [loading]="documentTypeManagement.loading"
+    [documentTypes]="documentTypeManagement.documentTypes"
+    [ordering]="documentTypeManagement.ordering"
+    [editedDocumentTypeId]="documentTypeManagement.editedDocumentTypeId"
+    (sortRequested)="documentTypeManagement.sortBy($event)"
+    (editRequested)="documentTypeManagement.editDocumentType($event)"
+    (deleteRequested)="documentTypeManagement.deleteDocumentType($event)"
+    (saveRequested)="documentTypeManagement.saveDocumentType($event)"
+    (cancelEditRequested)="documentTypeManagement.cancelEditing()"
+  ></admin-document-type-table>
+</div>

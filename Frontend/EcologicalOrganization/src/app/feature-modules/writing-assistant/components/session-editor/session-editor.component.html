@@ -1,0 +1,31 @@
+<div class="wa-editor">
+  <div class="wa-editor-inner">
+    <wa-session-header
+      [title]="overview.title || session.title || ''"
+      [globalInstruction]="overview.latestGlobalInstructionText || ''"
+      [documentTypes]="documentTypes"
+      [documentTypeId]="session.documentTypeId || null"
+      [isTestSession]="session.isTestSession || false"
+      (saveTitleRequested)="saveTitleRequested.emit($event)"
+      (addSectionRequested)="addSectionRequested.emit()"
+      (globalInstructionChange)="globalInstructionChange.emit($event)"
+      (documentTypeChange)="documentTypeChange.emit($event)"
+      (openPreviewRequested)="openPreviewRequested.emit()"
+    >
+    </wa-session-header>
+
+    <div class="wa-sections">
+      <wa-session-section
+        *ngFor="let section of overview.sections; trackBy: trackBySectionKey"
+        [section]="section"
+        (saveNameRequested)="saveSectionNameRequested.emit($event)"
+        (deleteRequested)="deleteSectionRequested.emit($event)"
+        (generateRequested)="generateSectionRequested.emit($event)"
+        (loadIterationRequested)="loadSectionIterationRequested.emit($event)"
+        (saveDraftRequested)="saveSectionDraftRequested.emit($event)"
+        (feedbackDialogOpenChange)="feedbackDialogOpenChange.emit($event)"
+        (submitFeedbackRequested)="submitFeedbackRequested.emit($event)"
+      ></wa-session-section>
+    </div>
+  </div>
+</div>

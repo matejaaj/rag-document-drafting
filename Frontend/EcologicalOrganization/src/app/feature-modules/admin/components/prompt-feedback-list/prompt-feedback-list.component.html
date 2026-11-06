@@ -1,0 +1,82 @@
+<div class="pf">
+  <div class="pf-list">
+    <admin-rating-summary [analytics]="analytics"></admin-rating-summary>
+    <div class="pf-empty muted" *ngIf="entries.length === 0">
+      Nema ocena za prikaz.
+    </div>
+
+    <div class="pf-card" *ngFor="let entry of entries">
+      <div class="pf-row pf-head">
+        <div class="pf-user">
+          <span class="pf-avatar">👤</span>
+          <span class="pf-name">
+            {{ entry.feedback.createdByEmail || "Korisnik #" + entry.feedback.createdBy }}
+          </span>
+        </div>
+
+        <div class="pf-stars" [attr.title]="entry.feedback.ratingValue || 0">
+          <span
+            class="star"
+            *ngFor="let starValue of starValues"
+            [class.filled]="starValue <= (entry.feedback.ratingValue || 0)"
+            >★</span
+          >
+          <span class="pf-date">{{
+            entry.feedback.createdAt | date : "dd-MM-yyyy HH:mm"
+          }}</span>
+        </div>
+      </div>
+
+      <div class="pf-comment" *ngIf="entry.feedback.commentText">
+        {{ entry.feedback.commentText }}
+      </div>
+
+      <button class="pf-toggle" (click)="toggleDetailsRequested.emit(entry)">
+        {{
+          entry.isExpanded
+            ? "▼ Sakrij konačan prompt i izlaz"
+            : "▶ Prikaži konačan prompt i izlaz"
+        }}
+      </button>
+
+      <div class="pf-details" *ngIf="entry.isExpanded">
+        <div class="pf-details-loading" *ngIf="entry.isLoadingDetails">
+          Učitavam…
+        </div>
+
+        <div class="pf-columns" *ngIf="!entry.isLoadingDetails">
+          <div class="pf-col">
+            <div class="pf-col-title">Konačan prompt</div>
+            <pre class="pf-pre">{{ entry.feedback.details?.finalPrompt || "—" }}</pre>
+          </div>
+          <div class="pf-col">
+            <div class="pf-col-title">Rezultat</div>
+            <pre class="pf-pre">{{ entry.feedback.details?.generatedText || "—" }}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pf-nav" *ngIf="pageCount > 1">
+      <button
+        class="pf-btn small"
+        [disabled]="page <= 1"
+        [style.visibility]="page > 1 ? 'visible' : 'hidden'"
+        (click)="previousPageRequested.emit()"
+      >
+        ←
+      </button>
+
+      <span class="pf-indicator">{{ page }} / {{ pageCount }}</span>
+
+      <button
+        class="pf-btn small"
+        [disabled]="page >= pageCount"
+        [style.visibility]="page < pageCount ? 'visible' : 'hidden'"
+        (click)="nextPageRequested.emit()"
+      >
+        →
+      </button>
+    </div>
+  </div>
+</div>

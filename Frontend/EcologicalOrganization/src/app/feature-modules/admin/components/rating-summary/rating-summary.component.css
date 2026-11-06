@@ -1,0 +1,132 @@
+.fs {
+  background: #fff;
+
+  padding: 12px;
+}
+
+.fs-wrap {
+  display: grid;
+  grid-template-columns: auto 360px;
+  gap: 16px;
+  align-items: start;
+  justify-items: start;
+  justify-content: start;
+
+  .fs-left {
+    margin-top: auto;
+    margin-bottom: auto;
+    display: grid;
+    row-gap: 8px;
+  }
+
+  .fs-line {
+    display: grid;
+    grid-template-columns: 200px 140px 100px;
+    align-items: center;
+    column-gap: 10px;
+  }
+
+  .fs-label {
+    color: #374151;
+  }
+  .fs-val {
+    font-weight: 700;
+    color: #111827;
+    text-align: right;
+  }
+  .fs-val .fs-muted {
+    margin-left: 6px;
+    font-weight: 400;
+  }
+  .fs-muted,
+  .muted {
+    color: #6b7280;
+    font-size: 12px;
+  }
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+  .fs-stars {
+    position: relative;
+    width: 160px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 18px;
+    letter-spacing: 2px;
+    display: inline-block;
+  }
+  .stars-bg {
+    color: #d1d5db;
+    user-select: none;
+  }
+  .stars-fg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    overflow: hidden;
+    color: #2563eb;
+    white-space: nowrap;
+    display: block;
+  }
+
+  .fs-right {
+    display: grid;
+    row-gap: 8px;
+    width: 100%;
+  }
+  .fs-row {
+    display: grid;
+    grid-template-columns: 28px 1fr 32px;
+    align-items: center;
+    column-gap: 15px;
+  }
+  .fs-row-label {
+    color: #374151;
+    text-align: right;
+  }
+  .fs-bar {
+    position: relative;
+    height: 10px;
+    background: #e5e7eb;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .fs-bar-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0%;
+    background: #2563eb;
+  }
+  .fs-row-count {
+    color: #6b7280;
+    text-align: right;
+  }
+
+  .fs-empty {
+    text-align: center;
+    padding: 8px 0;
+  }
+
+  @media (max-width: 900px) {
+    .fs-wrap {
+      grid-template-columns: 1fr;
+    }
+    .fs-line {
+      grid-template-columns: 150px 100px 1fr;
+    }
+  }
+}
+
+.fs-stars-simple {
+  font-size: 18px;
+  letter-spacing: 2px;
+  line-height: 20px;
+  user-select: none;
+}
+.fs-stars-simple .star {
+  color: #d1d5db;
+}
+.fs-stars-simple .star.on {
+  color: #2563eb;
+}

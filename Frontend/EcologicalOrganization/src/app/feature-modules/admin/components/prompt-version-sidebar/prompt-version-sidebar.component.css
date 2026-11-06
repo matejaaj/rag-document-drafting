@@ -1,0 +1,78 @@
+.sidebar2 {
+  width: 260px;
+  border-right: 1px solid var(--wa-line);
+  background: var(--wa-panel);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--wa-panel-2);
+  height: 100%;
+}
+
+.templates-head {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--wa-line);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.actions {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--wa-line);
+}
+
+.loading {
+  padding: 16px;
+  font-size: 13px;
+  color: var(--wa-muted);
+}
+
+.template-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+}
+
+.t-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid var(--wa-line);
+  background: var(--wa-panel-2);
+  border-radius: var(--wa-radius);
+  padding: 10px 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.t-card:hover {
+  background: var(--wa-hover);
+}
+
+.t-card.selected {
+  background: var(--wa-selected);
+  border-color: var(--wa-accent);
+}
+
+.t-name {
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.t-desc {
+  font-size: 12px;
+  color: var(--wa-muted);
+  margin-top: 2px;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 8px;
+  background: green;
+  color: #fff;
+}

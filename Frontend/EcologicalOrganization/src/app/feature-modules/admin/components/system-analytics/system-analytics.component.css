@@ -1,0 +1,21 @@
+.sa {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 30px;
+}
+
+.sa-actions-row {
+  display: flex;
+}
+.sa-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.sa-state {
+  padding: 12px;
+}
+.sa-state.error {
+  color: #c00;
+}

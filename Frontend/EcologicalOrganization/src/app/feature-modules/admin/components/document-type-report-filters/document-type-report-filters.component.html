@@ -1,0 +1,58 @@
+<div class="sa-toolbar-inline">
+  <div class="sa-group sa-group-inline">
+    <label class="wa-label">Period</label>
+    <div class="sa-range">
+      <input
+        class="wa-input small"
+        type="date"
+        [max]="filters.toDate || null"
+        [ngModel]="filters.fromDate"
+        (ngModelChange)="changeFilters({ fromDate: $event })"
+        aria-label="Datum od"
+      />
+      <span class="sa-range-sep">–</span>
+      <input
+        class="wa-input small"
+        type="date"
+        [min]="filters.fromDate || null"
+        [ngModel]="filters.toDate"
+        (ngModelChange)="changeFilters({ toDate: $event })"
+        aria-label="Datum do"
+      />
+    </div>
+  </div>
+
+  <div class="sa-group sa-doc-type">
+    <label class="wa-label" for="documentTypeSelect">Tip dokumenta</label>
+    <select
+      id="documentTypeSelect"
+      class="wa-input small sa-doc-type-select"
+      [disabled]="!documentTypes.length"
+      [ngModel]="filters.documentTypeId"
+      (ngModelChange)="changeFilters({ documentTypeId: $event })"
+    >
+      <option [ngValue]="null">Svi</option>
+      <option *ngFor="let documentType of documentTypes" [ngValue]="documentType.id">
+        {{ documentType.name }}
+      </option>
+    </select>
+  </div>
+
+  <label class="sa-toggle">
+    <input
+      type="checkbox"
+      [ngModel]="filters.includeTotal"
+      (ngModelChange)="changeFilters({ includeTotal: $event })"
+    />
+    <span>Uključi total</span>
+  </label>
+
+  <div class="sa-actions-row">
+    <div class="sa-actions">
+      <button class="wa-btn" (click)="applyRequested.emit()" [disabled]="!!dateRangeError">
+        Primeni
+      </button>
+      <button class="wa-btn ghost" (click)="resetRequested.emit()">Reset</button>
+    </div>
+  </div>
+</div>

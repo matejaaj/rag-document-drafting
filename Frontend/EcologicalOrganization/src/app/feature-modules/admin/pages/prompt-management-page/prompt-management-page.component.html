@@ -1,0 +1,79 @@
+<div class="app" [class.show-versions]="promptManagement.showVersionsSidebar">
+  <admin-prompt-sidebar
+    [prompts]="promptManagement.prompts"
+    [selectedPromptId]="promptManagement.selectedPrompt?.id ?? null"
+    [loading]="promptManagement.loadingPrompts"
+    [loadingMore]="promptManagement.loadingMorePrompts"
+    (createPromptRequested)="promptManagement.createDraftPrompt()"
+    (selectedPromptChange)="promptManagement.selectPrompt($event)"
+    (deletePromptRequested)="promptManagement.deletePrompt($event)"
+    (openSystemAnalyticsRequested)="openSystemAnalytics()"
+    (searchTermChange)="promptManagement.search($event)"
+    (loadMoreRequested)="promptManagement.loadMorePrompts()"
+    (logoutRequested)="promptManagement.logOut()"
+  ></admin-prompt-sidebar>
+
+  <admin-prompt-version-sidebar
+    *ngIf="promptManagement.showVersionsSidebar"
+    [versions]="promptManagement.versions"
+    [loading]="promptManagement.loadingVersions"
+    [selectedVersionId]="promptManagement.selectedVersion?.id ?? null"
+    (selectedVersionChange)="promptManagement.selectVersion($event)"
+    (createVersionRequested)="promptManagement.createDraftVersion()"
+  ></admin-prompt-version-sidebar>
+
+  <main class="main">
+    <div class="workspace" *ngIf="promptManagement.selectedPrompt as prompt">
+      <admin-prompt-editor
+        [prompt]="prompt"
+        [selectedVersion]="promptManagement.selectedVersion"
+        [documentTypes]="promptManagement.documentTypes"
+        (renamePromptRequested)="promptManagement.renamePrompt($event)"
+        (deletePromptRequested)="promptManagement.deletePrompt($event)"
+        (saveNewPromptRequested)="promptManagement.saveNewPrompt($event)"
+        (createVersionRequested)="promptManagement.createDraftVersion()"
+        (saveNewVersionRequested)="promptManagement.saveNewVersion($event)"
+        (saveVersionBasicInfoRequested)="promptManagement.saveVersionBasicInfo($event)"
+        (saveVersionPromptTextRequested)="promptManagement.saveVersionPromptText($event)"
+        (activateVersionRequested)="promptManagement.activateVersion($event)"
+        (deleteVersionRequested)="promptManagement.deleteVersion($event)"
+        (testVersionRequested)="promptManagement.testVersion($event)"
+      >
+        <admin-prompt-evaluation
+          *ngIf="evaluation.isVisible"
+          [activeTab]="evaluation.activeTab"
+          [scope]="evaluation.scope"
+          [loading]="evaluation.loading"
+          [error]="evaluation.error"
+          [analytics]="evaluation.analytics"
+          [feedbackEntries]="evaluation.feedbackEntries"
+          [feedbackPage]="evaluation.feedbackPage"
+          [feedbackPageCount]="evaluation.feedbackPageCount"
+          (activeTabChange)="evaluation.switchTab($event)"
+          (scopeChange)="evaluation.switchScope($event)"
+          (previousFeedbackPageRequested)="evaluation.showPreviousFeedbackPage()"
+          (nextFeedbackPageRequested)="evaluation.showNextFeedbackPage()"
+          (toggleFeedbackDetailsRequested)="evaluation.toggleFeedbackDetails($event)"
+        ></admin-prompt-evaluation>
+      </admin-prompt-editor>
+    </div>
+
+    <admin-system-analytics
+      *ngIf="promptManagement.showSystemAnalytics"
+      [filters]="systemAnalytics.filters"
+      [documentTypes]="systemAnalytics.documentTypes"
+      [dateRangeError]="systemAnalytics.dateRangeError"
+      [loading]="systemAnalytics.loading"
+      [error]="systemAnalytics.error"
+      [rows]="systemAnalytics.rows"
+      [sortColumn]="systemAnalytics.sortColumn"
+      [sortDirection]="systemAnalytics.sortDirection"
+      [downloadingPdf]="systemAnalytics.downloadingPdf"
+      (filtersChange)="systemAnalytics.changeFilters($event)"
+      (applyRequested)="systemAnalytics.applyFilters()"
+      (resetRequested)="systemAnalytics.resetFilters()"
+      (sortRequested)="systemAnalytics.sortBy($event)"
+      (downloadPdfRequested)="systemAnalytics.downloadPdf()"
+    ></admin-system-analytics>
+  </main>
+</div>

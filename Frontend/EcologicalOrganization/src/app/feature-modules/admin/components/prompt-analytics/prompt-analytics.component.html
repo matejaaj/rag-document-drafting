@@ -1,0 +1,59 @@
+<div class="pa" *ngIf="analytics">
+  <div class="pa-grid">
+    <div class="pa-card">
+      <div class="pa-label">Broj izvršavanja</div>
+      <div class="pa-value">
+        {{ analytics.numExecutions | number : "1.0-0" }}
+      </div>
+    </div>
+
+    <div class="pa-card">
+      <div class="pa-label">Prosečno trajanje</div>
+      <div class="pa-value">
+        <ng-container *ngIf="millisecondsToSeconds(analytics.avgDurationMs) as seconds; else emptyValue">
+          {{ seconds | number : "1.0-2" }}s
+        </ng-container>
+        <ng-template #emptyValue>—</ng-template>
+      </div>
+    </div>
+
+    <div class="pa-card">
+      <div class="pa-label">Ukupan broj tokena</div>
+      <div class="pa-value">
+        {{ analytics.totalTokens | number : "1.0-0" }}
+      </div>
+    </div>
+
+    <div class="pa-card">
+      <div class="pa-label">Prosečan broj tokena</div>
+      <div class="pa-value">
+        <ng-container *ngIf="analytics.avgTokens !== null; else emptyValue">
+          {{ analytics.avgTokens | number : "1.0-0" }}
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="pa-card">
+      <div class="pa-label">Trošak po izvršavanju</div>
+      <div class="pa-value">
+        <ng-container *ngIf="analytics.costPerExecution !== null; else emptyValue">
+          ${{ analytics.costPerExecution | number : "1.8-8" }}
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="pa-card">
+      <div class="pa-label">Ukupan trošak</div>
+      <div class="pa-value">${{ analytics.totalCostUsd | number : "1.5-5" }}</div>
+    </div>
+
+    <div class="pa-card">
+      <div class="pa-label">Stopa grešaka</div>
+      <div class="pa-value">
+        <ng-container *ngIf="analytics.errorRate !== null; else emptyValue">
+          {{ analytics.errorRate * 100 | number : "1.1-1" }}%
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

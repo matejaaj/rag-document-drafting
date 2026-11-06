@@ -1,0 +1,23 @@
+.idea/
+.vscode/
+
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+.venv/
+venv/
+
+.DS_Store
+Thumbs.db
+
+
+# Writing Assistant
+
+
+# User Managment
+
+# Supporting services kept locally
+/GatewayService/
+/UserManagement/

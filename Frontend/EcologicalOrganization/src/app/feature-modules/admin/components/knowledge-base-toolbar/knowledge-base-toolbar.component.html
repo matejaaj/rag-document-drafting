@@ -1,0 +1,67 @@
+<header class="dm-toolbar">
+  <nav class="dm-breadcrumbs" aria-label="Breadcrumb">
+    <button
+      class="crumb"
+      *ngFor="let breadcrumb of breadcrumbs; let index = index; let isLast = last"
+      (click)="openBreadcrumbRequested.emit(index)"
+      [disabled]="isLast"
+      [class.active]="isLast"
+      type="button"
+      title="Otvori nivo"
+    >
+      {{ breadcrumb.name }}
+    </button>
+  </nav>
+
+  <div class="dm-actions">
+    <input
+      class="wa-input"
+      placeholder="Novi folder (naziv)"
+      [ngModel]="newFolderName"
+      (ngModelChange)="newFolderNameChange.emit($event)"
+      (keyup.enter)="createFolderRequested.emit()"
+      aria-label="Naziv novog foldera"
+    />
+    <button
+      class="wa-btn"
+      (click)="createFolderRequested.emit()"
+      [disabled]="creatingFolder || !newFolderName.trim()"
+      type="button"
+    >
+      {{ creatingFolder ? "Kreiram..." : "Kreiraj folder" }}
+    </button>
+
+    <select
+      class="wa-select"
+      [ngModel]="selectedDocumentTypeId"
+      (ngModelChange)="selectedDocumentTypeIdChange.emit($event)"
+      aria-label="Tip dokumenta"
+      [disabled]="loadingDocumentTypes || !documentTypes.length"
+      title="Izaberi tip dokumenta"
+    >
+      <option [ngValue]="null" disabled>Tip dokumenta...</option>
+      <option *ngFor="let documentType of documentTypes" [ngValue]="documentType.id">
+        {{ documentType.name === "Default" ? "Ostalo" : documentType.name }}
+      </option>
+    </select>
+
+    <label class="wa-btn outline" title="Izaberi fajl">
+      Izaberi fajl
+      <input #fileInput type="file" (change)="pickFile($event)" hidden />
+    </label>
+
+    <button
+      class="wa-btn"
+      (click)="uploadRequested.emit()"
+      [disabled]="!selectedFile || uploading || selectedDocumentTypeId === null"
+      type="button"
+      title="Otpremi izabrani fajl"
+    >
+      {{ uploading ? "Upload..." : selectedFile ? "Otpremi" : "Otpremi fajl" }}
+    </button>
+
+    <button class="wa-btn ghost" (click)="refreshRequested.emit()" type="button">
+      Osvježi
+    </button>
+  </div>
+</header>

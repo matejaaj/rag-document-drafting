@@ -1,0 +1,93 @@
+<section class="wa-card">
+  <div class="wa-header-top">
+    <div class="wa-header-left">
+      <div class="wa-title-wrap">
+        <ng-container *ngIf="!editingTitle; else titleEditor">
+          <h2 class="wa-title">{{ title }}</h2>
+          <button
+            class="wa-btn icon small"
+            (click)="startTitleEdit()"
+            aria-label="Uredi naslov"
+          >
+            ✎
+          </button>
+        </ng-container>
+
+        <ng-template #titleEditor>
+          <div class="wa-edit-wrap">
+            <input
+              class="wa-input small"
+              type="text"
+              [(ngModel)]="titleDraft"
+              (keyup.enter)="saveTitle()"
+              (blur)="saveTitle()"
+              [class.invalid]="invalidTitle"
+              placeholder="Unesi naslov…"
+            />
+            <button class="wa-btn small" (click)="saveTitle()">✔</button>
+            <button class="wa-btn danger small" (click)="cancelTitleEdit()">
+              ✕
+            </button>
+          </div>
+        </ng-template>
+      </div>
+
+      <div class="wa-doc-type">
+        <label class="wa-label">Tip dokumenta</label>
+
+        <ng-container *ngIf="isTestSession; else documentTypeSelect">
+          <div class="pa-doc-type" [title]="selectedDocumentType?.description || ''">
+            {{ selectedDocumentType?.name || "—" }}
+          </div>
+        </ng-container>
+
+        <ng-template #documentTypeSelect>
+          <select
+            id="sessionDocumentType"
+            class="wa-input small wa-doc-type-select"
+            [disabled]="!documentTypes.length"
+            [ngModel]="documentTypeId"
+            (ngModelChange)="changeDocumentType($event)"
+          >
+            <option *ngFor="let documentType of documentTypes" [value]="documentType.id">
+              {{ documentType.name === "Default" ? "" : documentType.name }}
+            </option>
+          </select>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="wa-doc-desc"
+    *ngIf="selectedDocumentType && selectedDocumentType.name !== 'Default'"
+  >
+    <strong>{{ selectedDocumentType.name }}</strong>
+    <div class="wa-doc-desc-text" [title]="selectedDocumentType.description || ''">
+      {{ selectedDocumentType.description || "—" }}
+    </div>
+  </div>
+
+  <div class="wa-stack">
+    <div>
+      <label class="wa-label" for="globalInstruction">Opis zahteva za dokument</label>
+      <textarea
+        id="globalInstruction"
+        class="wa-input"
+        [ngModel]="globalInstruction"
+        (ngModelChange)="globalInstructionChange.emit($event)"
+        rows="4"
+        placeholder="Npr: Dokument treba da sadrži pregled zakonskih obaveza, primere dobre prakse i preporuke za škole. Koristi jasan i stručan ton jer će dokument biti predstavljen lokalnoj samoupravi."
+      ></textarea>
+    </div>
+
+    <div class="wa-actions">
+      <button class="wa-btn" (click)="addSectionRequested.emit()">
+        ＋ Dodaj sekciju
+      </button>
+      <button class="wa-btn" (click)="openPreviewRequested.emit()">
+        Pogledaj ceo dokument
+      </button>
+    </div>
+  </div>
+</section>

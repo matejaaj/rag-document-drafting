@@ -1,0 +1,34 @@
+<section class="wa-card sa">
+  <admin-document-type-report-filters
+    [filters]="filters"
+    [documentTypes]="documentTypes"
+    [dateRangeError]="dateRangeError"
+    (filtersChange)="filtersChange.emit($event)"
+    (applyRequested)="applyRequested.emit()"
+    (resetRequested)="resetRequested.emit()"
+  ></admin-document-type-report-filters>
+
+  <div class="sa-state error" *ngIf="dateRangeError">{{ dateRangeError }}</div>
+  <div class="sa-state" *ngIf="loading">Učitavam…</div>
+  <div class="sa-state error" *ngIf="!loading && error">{{ error }}</div>
+
+  <admin-document-type-report-table
+    *ngIf="!loading && !error"
+    [rows]="rows"
+    [sortColumn]="sortColumn"
+    [sortDirection]="sortDirection"
+    (sortRequested)="sortRequested.emit($event)"
+  ></admin-document-type-report-table>
+
+  <div class="sa-actions-row" *ngIf="!loading && !error">
+    <div class="sa-actions">
+      <button
+        class="wa-btn"
+        (click)="downloadPdfRequested.emit()"
+        [disabled]="!!dateRangeError || downloadingPdf"
+      >
+        {{ downloadingPdf ? "Pripremam PDF…" : "Preuzmi izveštaj (PDF)" }}
+      </button>
+    </div>
+  </div>
+</section>

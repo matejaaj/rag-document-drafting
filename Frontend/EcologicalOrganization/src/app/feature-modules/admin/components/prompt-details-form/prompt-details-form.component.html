@@ -1,0 +1,105 @@
+<section class="wa-card pa-card">
+  <h3 class="pa-card-title">Osnovni podaci prompta</h3>
+
+  <div class="pa-grid-3">
+    <div class="left">
+      <div class="pa-field">
+        <label class="wa-label">Naziv prompta</label>
+
+        <ng-container *ngIf="!isEditingTitle; else editTitleTemplate">
+          <div class="wa-title-wrap">
+            <h2 class="wa-title">{{ titleDraft || "(bez naziva)" }}</h2>
+            <button
+              class="wa-btn icon small"
+              type="button"
+              (click)="startEditingTitle()"
+              aria-label="Uredi naslov"
+            >
+              ✎
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-template #editTitleTemplate>
+          <div class="wa-edit-wrap">
+            <input
+              class="wa-input small"
+              type="text"
+              [(ngModel)]="titleDraft"
+              (keyup.enter)="saveTitle()"
+              (blur)="saveTitle()"
+              [class.invalid]="isTitleInvalid"
+              placeholder="Unesi naziv…"
+            />
+            <button class="wa-btn small" (click)="saveTitle()">✔</button>
+            <button
+              class="wa-btn danger small"
+              *ngIf="!isNewPrompt"
+              (click)="cancelEditingTitle()"
+            >
+              ✕
+            </button>
+          </div>
+        </ng-template>
+      </div>
+
+      <div class="pa-field">
+        <label class="wa-label">Tip dokumenta</label>
+
+        <ng-container *ngIf="isNewPrompt; else fixedDocumentTypeTemplate">
+          <select
+            class="wa-input small wa-doc-type-select"
+            [disabled]="!documentTypes.length"
+            [ngModel]="documentTypeIdDraft"
+            (ngModelChange)="changeDocumentType($event)"
+          >
+            <option *ngFor="let documentType of documentTypes" [value]="documentType.id">
+              {{ documentType.name }}
+            </option>
+          </select>
+        </ng-container>
+
+        <ng-template #fixedDocumentTypeTemplate>
+          <div class="pa-doc-type" [title]="documentTypeName">
+            {{ documentTypeName }}
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="action-buttons-right" *ngIf="!isNewPrompt">
+      <div class="pa-field pa-new-version">
+        <label class="wa-label">&nbsp;</label>
+        <button
+          class="wa-btn full"
+          type="button"
+          (click)="createVersionRequested.emit()"
+        >
+          + Kreiraj novu verziju
+        </button>
+      </div>
+
+      <div class="pa-field pa-delete">
+        <label class="wa-label">&nbsp;</label>
+        <button
+          class="wa-btn danger full"
+          type="button"
+          (click)="deleteRequested.emit()"
+        >
+          Obriši prompt
+        </button>
+      </div>
+    </div>
+
+    <ng-template [ngIf]="isNewPrompt">
+      <div class="action-buttons-right">
+        <div class="pa-field">
+          <label class="wa-label">&nbsp;</label>
+          <button class="wa-btn full" type="button" (click)="saveNewPrompt()">
+            Sačuvaj novi prompt
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</section>
